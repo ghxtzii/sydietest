@@ -1,4 +1,4 @@
-print("testi7 Loaded")
+IDKKM Loaded")
 
 local g = getinfo or debug.getinfo
 local d = false
