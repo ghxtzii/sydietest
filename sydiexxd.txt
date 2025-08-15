@@ -142,9 +142,20 @@ local Player = game:GetService("Players").LocalPlayer
 
 local repo = 'https://raw.githubusercontent.com/ghxtzii/sydietest/main/'
 
-local library      = loadstring(game:HttpGet(repo .. 'Library.lua'))()
-local thememanager = loadstring(game:HttpGet(repo .. 'addons/ThemeManager.lua'))()
-local savemanager  = loadstring(game:HttpGet(repo .. 'addons/SaveManager.lua'))()
+local function safeLoad(url, name)
+    local src = game:HttpGet(url)
+    assert(src and src ~= "", name .. " failed to load from " .. url)
+    local fn = loadstring(src)
+    assert(type(fn) == "function", name .. " is not valid Lua")
+    local result = fn()
+    assert(result ~= nil, name .. " did not return anything")
+    return result
+end
+
+local library      = safeLoad(repo .. 'Library.lua',      "Library.lua")
+local thememanager = safeLoad(repo .. 'addons/ThemeManager.lua', "ThemeManager.lua")
+local savemanager  = safeLoad(repo .. 'addons/SaveManager.lua',  "SaveManager.lua")
+
 
 Library:SetWatermarkVisibility(true)
 
