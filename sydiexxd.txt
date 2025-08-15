@@ -140,7 +140,7 @@ local SoundService = game:GetService("SoundService")
 local Stats = game:GetService("Stats")
 local Player = game:GetService("Players").LocalPlayer
 
-local repo = 'https://raw.githubusercontent.com/VardySc/XternalNew/main/'
+local repo = 'https://raw.githubusercontent.com/ghxtzii/sydietest/main/'
 local library = loadstring(game:HttpGet(repo .. 'Library.lua'))()
 local thememanager = loadstring(game:HttpGet(repo .. 'addons/ThemeManager.lua'))()
 local savemanager = loadstring(game:HttpGet(repo .. 'addons/SaveManager.lua'))()
