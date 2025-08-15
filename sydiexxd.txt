@@ -1,5 +1,5 @@
 if type(setfpscap) == "function" then
-    setfpscap(240)
+    setfpscap(1000)
 end
 
 print("sydie67 Loaded")
