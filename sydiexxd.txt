@@ -1,7 +1,3 @@
-if type(setfpscap) == "function" then
-    setfpscap(1000)
-end
-
 print("sydie67 Loaded")
 
 local g = getinfo or debug.getinfo
