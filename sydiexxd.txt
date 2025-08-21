@@ -1,5 +1,3 @@
-print("testi7 Loaded")
-
 local g = getinfo or debug.getinfo
 local d = false
 local h = {}
@@ -2714,3 +2712,5 @@ if target and target.Character then
         -- draw tracer to pos here
     end
 end
+
+print("testi7 Loaded")
