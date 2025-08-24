@@ -1,5 +1,4 @@
-setfpscap(1000)
-
+setfpscap(999)
 
 local g = getinfo or debug.getinfo
 local d = false
@@ -112,7 +111,6 @@ if game.PlaceId == 7213786345 or game.PlaceId == 16033173781 or game.PlaceId == 
     return Remote
 end
 
-
 local runservice = game:GetService("RunService")
 local camera = workspace.CurrentCamera
 local players = game:GetService("Players")
@@ -124,12 +122,12 @@ local SoundService = game:GetService("SoundService")
 local Stats = game:GetService("Stats")
 local Player = game:GetService("Players").LocalPlayer
 
-local repo = "https://raw.githubusercontent.com/VardySc/Pornhub/main/"
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/VardySc/Pornhub/main/Library.lua"))()
-local thememanager = loadstring(game:HttpGet(repo .. "addons/ThemeManager.lua"))()
-local savemanager = loadstring(game:HttpGet(repo .. "addons/SaveManager.lua"))()
+local repo = "https://raw.githubusercontent.com/ghxtzii/sydietest/main/"
+local library = loadstring(game:HttpGet(repo .. "library.lua"))()
+local thememanager = loadstring(game:HttpGet(repo .. "addons/thememanager.lua"))()
+local savemanager = loadstring(game:HttpGet(repo .. "addons/savemanager.lua"))()
 
-Library:SetWatermarkVisibility(true)
+library:SetWatermarkVisibility(true)
 
 local FrameTimer = tick()
 local FrameCounter = 0
@@ -148,7 +146,7 @@ local WatermarkConnection =
 
         local currentTime = os.date("%H:%M:%S")
 
-        Library:SetWatermark(
+        library:SetWatermark(
             ("Sydie.lol | %s fps | %s ms | Time: %s"):format(
                 math.floor(FPS),
                 math.floor(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue()),
@@ -331,10 +329,9 @@ local window =
 )
 
 local tabs = {
-    combat = window:AddTab("Combat"),
-    raging = window:AddTab("Blatant"),
-    visuals = window:AddTab("Misc"),
-    credit = window:AddTab("Credits"),
+    main = window:AddTab("Main"),
+    misc = window:AddTab("Misc"),
+    settingzz = window:AddTab("Settingzz"),
     config = window:AddTab("Config")
 }
 
@@ -391,7 +388,7 @@ TextButton.BackgroundTransparency = 0.5
 TextButton.Size = UDim2.new(0, 75, 0, 75)
 TextButton.AnchorPoint = Vector2.new(0.5, 0.5)
 TextButton.Position = UDim2.new(0.5, 0, 0.5, 0)
-TextButton.Image = "rbxassetid://129225087302154"
+TextButton.Image = "rbxassetid://92731706837925"
 TextButton.Active = true
 
 local Outline = Instance.new("UIStroke")
@@ -444,19 +441,19 @@ TextButton.MouseButton1Click:Connect(
             if enemy then
                 getgenv().Sydie.Camlock.target = enemy
                 getgenv().Sydie.Targetaim.target = enemy
-                TextButton.Image = "rbxassetid://138552945575395"
-                library:Notify("ZN: Enabled, Target: " .. enemy.DisplayName, 2)
+                TextButton.Image = "rbxassetid://139865395670682"
+                library:Notify("Sydie67: Enabled, Target: " .. enemy.DisplayName, 2)
             else
                 getgenv().Sydie.Camlock.enabled = false
                 getgenv().Sydie.Targetaim.enabled = false
-                TextButton.Image = "rbxassetid://129225087302154"
+                TextButton.Image = "rbxassetid://92731706837925"
                 library:Notify("No Target Found", 2)
             end
         else
             getgenv().Sydie.Camlock.target = nil
             getgenv().Sydie.Targetaim.target = nil
-            TextButton.Image = "rbxassetid://129225087302154"
-            library:Notify("ZN: Spared Target", 2)
+            TextButton.Image = "rbxassetid://92731706837925"
+            library:Notify("Sydie67: Spared Target", 2)
         end
     end
 )
@@ -1337,19 +1334,17 @@ RunService.Heartbeat:Connect(
     end
 )
 
-local main = tabs.combat:AddLeftGroupbox("Main Settings")
-local air = tabs.combat:AddRightGroupbox("Air Settings")
-local speed = tabs.combat:AddRightGroupbox("CFrame")
-local ag = tabs.combat:AddRightGroupbox("Anti ground shots")
-local hit_group = tabs.visuals:AddLeftGroupbox("Hit Sounds")
-local circleBox = tabs.visuals:AddLeftGroupbox("Visuals")
-local buy = tabs.visuals:AddRightGroupbox("Teleport Item")
-local hvh = tabs.combat:AddLeftGroupbox("HVH Orbit")
-local ant = tabs.visuals:AddRightGroupbox("Antilocks")
-local char = tabs.combat:AddRightGroupbox("Character Settings")
-local crd = tabs.credit:AddLeftGroupbox("Credits")
-local chng = tabs.credit:AddRightGroupbox("Changelogs")
-local at = tabs.combat:AddRightGroupbox("Autos")
+local main = tabs.main:AddLeftGroupbox("Main Settings")
+local air = tabs.main:AddRightGroupbox("Air Settings")
+local speed = tabs.main:AddRightGroupbox("CFrame")
+local ag = tabs.main:AddRightGroupbox("Anti ground shots")
+local hit_group = tabs.misc:AddLeftGroupbox("Hit Sounds")
+local circleBox = tabs.misc:AddLeftGroupbox("Visuals")
+local buy = tabs.misc:AddRightGroupbox("Teleport Item")
+local hvh = tabs.main:AddLeftGroupbox("HVH Orbit")
+local ant = tabs.misc:AddRightGroupbox("Antilocks")
+local char = tabs.main:AddRightGroupbox("Character Settings")
+local at = tabs.main:AddRightGroupbox("Autos")
 
 getgenv().AutoReloadEnabled = false
 
@@ -1747,7 +1742,7 @@ circleBox:AddToggle(
 circleBox:AddToggle(
     "predbreaker",
     {
-        Text = "PredBreaker (supports negative)",
+        Text = "PredBreaker",
         Default = false,
         Callback = function(state)
             getgenv().antilock.mode = state and "Predbreaker" or getgenv().antilock.mode
@@ -2504,3 +2499,217 @@ do
         end
     }
 end
+
+
+
+
+-- === Extra features injected: PredBreaker, Self Visual, Crosshair, Tracer/ESP ===
+
+-- PredBreaker global
+getgenv().PredBreaker = getgenv().PredBreaker or { Enabled = false, Value = 0 }
+
+-- Self visual (dot) that follows predbreaker value
+local _DrawingAvailable = pcall(function() return Drawing.new end)
+if _DrawingAvailable then
+    local selfDot = Drawing.new("Circle")
+    selfDot.Visible = false
+    selfDot.Filled = true
+    selfDot.Radius = 4
+    selfDot.Color = Color3.fromRGB(160,90,255)
+    selfDot.Thickness = 0
+
+    RunService.RenderStepped:Connect(function()
+        if getgenv().PredBreaker.Enabled then
+            local center = Camera.ViewportSize/2
+            -- map value to pixels; adjustable scale
+            local xoff = (getgenv().PredBreaker.Value or 0) * 10
+            selfDot.Position = center + Vector2.new(xoff, 0)
+            selfDot.Visible = true
+        else
+            selfDot.Visible = false
+        end
+    end)
+end
+
+-- Crosshair (uses provided implementation, text set to Sydie.lol)
+getgenv().crosshair = getgenv().crosshair or {
+    enabled = false,
+    refreshrate = 0,
+    mode = 'center',
+    position = Vector2.new(0, 0),
+    width = 1.5,
+    length = 10,
+    radius = 11,
+    color = Color3.fromRGB(0,0,128),
+    spin = true,
+    spin_speed = 150,
+    spin_max = 340,
+    spin_style = Enum.EasingStyle.Sine,
+    resize = true,
+    resize_speed = 150,
+    resize_min = 5,
+    resize_max = 22,
+}
+
+-- safe hook for Drawing.new; preserve existing if already hooked
+do
+    local ok, old = pcall(function() return hookfunction(Drawing.new, function() end) end)
+    -- we'll attempt to create drawings without rehooking if environment restricts
+end
+
+-- create crosshair drawings
+local ok2, textA = pcall(function() return Drawing.new('Text') end)
+if ok2 then
+    local drawings = {
+        crosshair = {},
+        text = {Drawing.new('Text'), Drawing.new('Text')},
+    }
+    drawings.text[1].Size = 13; drawings.text[1].Font = 2; drawings.text[1].Outline = true; drawings.text[1].Text = "Sydie"; drawings.text[1].Color = Color3.new(1,1,1)
+    drawings.text[2].Size = 13; drawings.text[2].Font = 2; drawings.text[2].Outline = true; drawings.text[2].Text = ".lol"; drawings.text[2].Color = Color3.new(1,1,1)
+    for i=1,8 do drawings.crosshair[i] = Drawing.new('Line') end
+
+    local function solve(angle, radius)
+        return Vector2.new(math.sin(math.rad(angle))*radius, math.cos(math.rad(angle))*radius)
+    end
+
+    RunService.PostSimulation:Connect(function()
+        local _tick = tick()
+        if _tick - (getgenv()._last_cross or 0) > (getgenv().crosshair.refreshrate or 0) then
+            getgenv()._last_cross = _tick
+            local position = (getgenv().crosshair.mode == 'center' and Camera.ViewportSize/2 or getgenv().crosshair.mode == 'mouse' and UserInputService:GetMouseLocation() or getgenv().crosshair.position)
+            local text_x = (drawings.text[1].TextBounds.X or 0) + (drawings.text[2].TextBounds.X or 0)
+            drawings.text[1].Visible = getgenv().crosshair.enabled
+            drawings.text[2].Visible = getgenv().crosshair.enabled
+            if getgenv().crosshair.enabled then
+                drawings.text[1].Position = position + Vector2.new(-text_x/2, getgenv().crosshair.radius + (getgenv().crosshair.resize and getgenv().crosshair.resize_max or getgenv().crosshair.length) + 15)
+                drawings.text[2].Position = drawings.text[1].Position + Vector2.new(drawings.text[1].TextBounds.X,0)
+                drawings.text[2].Color = getgenv().crosshair.color
+                for idx=1,4 do
+                    local outline = drawings.crosshair[idx]
+                    local inline = drawings.crosshair[idx+4]
+                    local angle = (idx-1)*90
+                    local length = getgenv().crosshair.length
+                    if getgenv().crosshair.spin then
+                        local spin_angle = -_tick * getgenv().crosshair.spin_speed % getgenv().crosshair.spin_max
+                        angle = angle + TweenService:GetValue(spin_angle/360, getgenv().crosshair.spin_style, Enum.EasingDirection.InOut)*360
+                    end
+                    if getgenv().crosshair.resize then
+                        local resize_length = tick()*getgenv().crosshair.resize_speed % 180
+                        length = getgenv().crosshair.resize_min + math.sin(math.rad(resize_length))*getgenv().crosshair.resize_max
+                    end
+                    inline.Visible = true; inline.Color = getgenv().crosshair.color
+                    inline.From = position + solve(angle, getgenv().crosshair.radius)
+                    inline.To = position + solve(angle, getgenv().crosshair.radius + length)
+                    inline.Thickness = getgenv().crosshair.width
+                    outline.Visible = true; outline.From = position + solve(angle, getgenv().crosshair.radius - 1)
+                    outline.To = position + solve(angle, getgenv().crosshair.radius + length + 1); outline.Thickness = getgenv().crosshair.width + 1.5
+                end
+            else
+                for i=1,8 do drawings.crosshair[i].Visible = false end
+            end
+        end
+    end)
+end
+
+-- Tracer/ESP fallback toggles (attach HRP->HRP)
+getgenv().SydieVisuals = getgenv().SydieVisuals or {ESP=false, Tracer=false}
+do
+    local tracer = Drawing.new("Line"); tracer.Visible=false; tracer.Thickness=1
+    local box = Drawing.new("Square"); box.Visible=false; box.Filled=false; box.Thickness=1
+    RunService.RenderStepped:Connect(function()
+        if not getgenv().SydieVisuals.ESP and not getgenv().SydieVisuals.Tracer then
+            tracer.Visible=false; box.Visible=false; return
+        end
+        local target
+        for _, p in pairs(Players:GetPlayers()) do if p~=LocalPlayer and p.Character and p.Character:FindFirstChild("HumanoidRootPart") then target = p; break end end
+        if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
+            local hrp = target.Character.HumanoidRootPart
+            local hrpPos, on = Camera:WorldToViewportPoint(hrp.Position)
+            if on and getgenv().SydieVisuals.ESP then
+                local head = target.Character:FindFirstChild("Head")
+                local headPos = head and Camera:WorldToViewportPoint(head.Position) or hrpPos
+                local size = math.abs(hrpPos.Y - headPos.Y) * 2
+                box.Size = Vector2.new(size/1.5, size); box.Position = Vector2.new(hrpPos.X - box.Size.X/2, hrpPos.Y - box.Size.Y/2)
+                box.Color = Color3.fromRGB(160,90,255); box.Visible=true
+            else box.Visible=false end
+            if on and getgenv().SydieVisuals.Tracer and LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                local myPos = Camera:WorldToViewportPoint(LocalPlayer.Character.HumanoidRootPart.Position)
+                tracer.From = Vector2.new(myPos.X, myPos.Y); tracer.To = Vector2.new(hrpPos.X, hrpPos.Y)
+                tracer.Color = Color3.fromRGB(235,220,255); tracer.Visible = true
+            else tracer.Visible=false end
+        else tracer.Visible=false; box.Visible=false end
+    end)
+end
+
+-- PredBreaker integration to aim hooks: the main namecall hook may already adjust arguments; we add a safety layer
+do
+    local orig_namecall
+    if pcall(function() return hookmetamethod end) then
+        orig_namecall = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
+            local args = {...}; local method = getnamecallmethod()
+            if not checkcaller() and method == "FireServer" and getgenv().PredBreaker.Enabled then
+                for i,v in ipairs(args) do
+                    if typeof(v) == "Vector3" then
+                        -- shift by pred breaker value in world units via adding offset in X
+                        args[i] = v + Vector3.new((getgenv().PredBreaker.Value or 0), 0, 0)
+                        return orig_namecall(self, unpack(args))
+                    end
+                end
+            end
+            return orig_namecall(self, ...)
+        end))
+    end
+end
+
+-- End injected features
+-- ForceHit hook (inserted)
+getgenv().ForceHit = { Enabled = false }
+local SelectedTarget = nil
+local CachedClosestPlayer = nil
+task.spawn(function()
+    while task.wait(0.5) do
+        SelectedTarget = nil
+        local t = nil
+        for _, p in pairs(Players:GetPlayers()) do
+            if p ~= LocalPlayer and p.Character and p.Character:FindFirstChild("HumanoidRootPart") then
+                t = p; break
+            end
+        end
+        CachedClosestPlayer = t and t.Character and t.Character:FindFirstChild("HumanoidRootPart") or nil
+    end
+end)
+
+local OriginalNameCall; OriginalNameCall = hookmetamethod(game, "__namecall", function(Object, ...)
+    local Arguments = {...}
+    local NameCallMethod = getnamecallmethod()
+
+    if not getgenv().ForceHit.Enabled then
+        return OriginalNameCall(Object, ...)
+    end
+
+    if NameCallMethod == "InvokeServer" and Object.Name == "MainFunction" and #Arguments > 0 and Arguments[1] == "GunCheck" then
+        return nil
+    end
+
+    if NameCallMethod == "FireServer" and Object.Name == "MainEvent" and #Arguments > 0 and Arguments[1] == "Shoot" then
+        local AimPart = SelectedTarget or CachedClosestPlayer
+        if AimPart then
+            if Arguments[2] and #Arguments[2] > 0 then
+                for _, Table in pairs(Arguments[2][1]) do
+                    Table["Instance"] = AimPart
+                end
+                for _, Table in pairs(Arguments[2][2]) do
+                    Table["thePart"] = AimPart
+                    Table["theOffset"] = CFrame.new()
+                end
+            end
+            return OriginalNameCall(Object, unpack(Arguments))
+        end
+    end
+    
+    return OriginalNameCall(Object, ...)
+end)
+ect, ...)
+end)
+ll(Object, ...)
+end)
