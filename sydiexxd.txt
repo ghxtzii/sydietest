@@ -1,3 +1,6 @@
+setfpscap(1000)
+
+
 local g = getinfo or debug.getinfo
 local d = false
 local h = {}
@@ -10,63 +13,46 @@ for i, v in getgc(true) do
     if typeof(v) == "table" then
         local a = rawget(v, "Detected")
         local b = rawget(v, "Kill")
-
+    
         if typeof(a) == "function" and not x then
             x = a
-
-            local o
-            o =
-                hookfunction(
-                x,
-                function(c, f, n)
-                    if c ~= "_" then
-                        if d then
-                        end
+            
+            local o; o = hookfunction(x, function(c, f, n)
+                if c ~= "_" then
+                    if d then
                     end
-
-                    return true
                 end
-            )
+                
+                return true
+            end)
 
             table.insert(h, x)
         end
 
         if rawget(v, "Variables") and rawget(v, "Process") and typeof(b) == "function" and not y then
             y = b
-            local o
-            o =
-                hookfunction(
-                y,
-                function(f)
-                    if d then
-                    end
+            local o; o = hookfunction(y, function(f)
+                if d then
                 end
-            )
+            end)
 
             table.insert(h, y)
         end
     end
 end
 
-local o
-o =
-    hookfunction(
-    getrenv().debug.info,
-    newcclosure(
-        function(...)
-            local a, f = ...
+local o; o = hookfunction(getrenv().debug.info, newcclosure(function(...)
+    local a, f = ...
 
-            if x and a == x then
-                if d then
-                end
-
-                return coroutine.yield(coroutine.running())
-            end
-
-            return o(...)
+    if x and a == x then
+        if d then
         end
-    )
-)
+
+        return coroutine.yield(coroutine.running())
+    end
+    
+    return o(...)
+end))
 
 setthreadidentity(7)
 
@@ -74,7 +60,7 @@ if game.PlaceId == 7213786345 or game.PlaceId == 16033173781 or game.PlaceId == 
     local a = {
         "BANREMOTE",
         "PERMAIDBAN",
-        "KICKREMOTE",
+        "KICKREMOTE", 
         "BR_KICKPC",
         "BR_KICKMOBILE",
         "OneMoreTime",
@@ -83,7 +69,7 @@ if game.PlaceId == 7213786345 or game.PlaceId == 16033173781 or game.PlaceId == 
         "CHECKER",
         "GUI_CHECK",
         "checkingSPEED",
-        "CHECKER_1",
+        "CHECKER_1", 
         "TeleportDetect",
         "OneMoreTime",
         "PERMA-BAN",
@@ -102,8 +88,7 @@ if game.PlaceId == 7213786345 or game.PlaceId == 16033173781 or game.PlaceId == 
     local Remote
 
     local FireHook
-    FireHook =
-        hookmetamethod(
+    FireHook = hookmetamethod(
         game,
         "__namecall",
         function(...)
@@ -127,6 +112,7 @@ if game.PlaceId == 7213786345 or game.PlaceId == 16033173781 or game.PlaceId == 
     return Remote
 end
 
+
 local runservice = game:GetService("RunService")
 local camera = workspace.CurrentCamera
 local players = game:GetService("Players")
@@ -138,11 +124,10 @@ local SoundService = game:GetService("SoundService")
 local Stats = game:GetService("Stats")
 local Player = game:GetService("Players").LocalPlayer
 
-local repo = 'https://raw.githubusercontent.com/VardySc/XternalNew/main/'
-
-local library      = loadstring(game:HttpGet(repo .. 'Library.lua'))()
-local thememanager = loadstring(game:HttpGet(repo .. 'addons/ThemeManager.lua'))()
-local savemanager  = loadstring(game:HttpGet(repo .. 'addons/SaveManager.lua'))()
+local repo = "https://raw.githubusercontent.com/VardySc/Pornhub/main/"
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/VardySc/Pornhub/main/Library.lua"))()
+local thememanager = loadstring(game:HttpGet(repo .. "addons/ThemeManager.lua"))()
+local savemanager = loadstring(game:HttpGet(repo .. "addons/SaveManager.lua"))()
 
 Library:SetWatermarkVisibility(true)
 
@@ -346,10 +331,11 @@ local window =
 )
 
 local tabs = {
-    main    = window:AddTab("Main"),
-    misc    = window:AddTab("Misc"),
-    setting = window:AddTab("Settingzz"),
-    config  = window:AddTab("Config")
+    combat = window:AddTab("Combat"),
+    raging = window:AddTab("Blatant"),
+    visuals = window:AddTab("Misc"),
+    credit = window:AddTab("Credits"),
+    config = window:AddTab("Config")
 }
 
 local Sydie = getgenv().Sydie
@@ -459,7 +445,7 @@ TextButton.MouseButton1Click:Connect(
                 getgenv().Sydie.Camlock.target = enemy
                 getgenv().Sydie.Targetaim.target = enemy
                 TextButton.Image = "rbxassetid://138552945575395"
-                library:Notify(": Enabled, Target: " .. enemy.DisplayName, 2)
+                library:Notify("ZN: Enabled, Target: " .. enemy.DisplayName, 2)
             else
                 getgenv().Sydie.Camlock.enabled = false
                 getgenv().Sydie.Targetaim.enabled = false
@@ -470,7 +456,7 @@ TextButton.MouseButton1Click:Connect(
             getgenv().Sydie.Camlock.target = nil
             getgenv().Sydie.Targetaim.target = nil
             TextButton.Image = "rbxassetid://129225087302154"
-            library:Notify(": Spared Target", 2)
+            library:Notify("ZN: Spared Target", 2)
         end
     end
 )
@@ -924,7 +910,7 @@ local HitSoundId = {
     Pop = "rbxassetid://198598793",
     Rust = "rbxassetid://1255040462",
     Sans = "rbxassetid://3188795283",
-    IDK = "rbxassetid://130833677",
+    Fart = "rbxassetid://130833677",
     Big = "rbxassetid://5332005053",
     Vine = "rbxassetid://5332680810",
     Bruh = "rbxassetid://4578740568",
@@ -942,7 +928,7 @@ local hitSoundsNames = {
     "Pop",
     "Rust",
     "Sans",
-    "IDK",
+    "Fart",
     "Big",
     "Vine",
     "Bruh",
@@ -1156,7 +1142,7 @@ Hook =
     end
 )
 
-getgenv().TargetStatus = {
+getgenv().EnemyStats = {
     Enabled = false
 }
 
@@ -1227,7 +1213,7 @@ RunService.RenderStepped:Connect(
         local camEnabled = getgenv().Sydie.Camlock.enabled
         local target = getgenv().Sydie.Targetaim.target
 
-        if getgenv().TargetStatus.Enabled and camEnabled and target then
+        if getgenv().EnemyStats.Enabled and camEnabled and target then
             if not ScreenGui then
                 createGUI()
             end
@@ -1701,10 +1687,10 @@ main:AddInput(
 main:AddToggle(
     "stats_enemy",
     {
-        Text = "Target Status",
-        Default = getgenv().TargetStatus.Enabled,
+        Text = "Enemy Stats",
+        Default = getgenv().EnemyStats.Enabled,
         Callback = function(val)
-            getgenv().TargetStatus.Enabled = val
+            getgenv().EnemyStats.Enabled = val
         end
     }
 )
@@ -2165,6 +2151,20 @@ local function getGreeting()
     end
 end
 
+local function startGreetingUpdater(label)
+    task.spawn(
+        function()
+            while true do
+                label:SetText(getGreeting() .. ", " .. displayName .. "!")
+                task.wait(30) -- check every 30 seconds
+            end
+        end
+    )
+end
+
+local greetingLabel = main:AddLabel("...") -- placeholder
+startGreetingUpdater(greetingLabel)
+
 air:AddToggle(
     "enabled",
     {
@@ -2412,7 +2412,7 @@ cfgGroup:AddButton(
 cfgGroup:AddSlider(
     "wave_speed",
     {
--- wave speed removed
+        Text = "Wave Speed",
         Default = 1,
         Min = 0.1,
         Max = 5,
@@ -2504,213 +2504,3 @@ do
         end
     }
 end
-
-
-
--- Main Tab Order (Camlock, Hook Method, Hit Part, Prediction, Auto Prediction, Smoothness, Prediction Settings, Target Status, then blatant features)
-
-
---[[ Target Status UI (modernized) ]]
-pcall(function()
-    local Players = game:GetService("Players")
-    local LocalPlayer = Players.LocalPlayer
-    local PlayerGui = LocalPlayer:FindFirstChildOfClass("PlayerGui") or LocalPlayer:WaitForChild("PlayerGui")
-
-    local ScreenGui = PlayerGui:FindFirstChild("Sydie_UI") or Instance.new("ScreenGui", PlayerGui)
-    ScreenGui.Name = "Sydie_UI"
-    ScreenGui.ResetOnSpawn = false
-
-    local TS = ScreenGui:FindFirstChild("TargetStatus") or Instance.new("Frame", ScreenGui)
-    TS.Name = "TargetStatus"
-    TS.Size = UDim2.new(0, 260, 0, 110)
-    TS.Position = UDim2.new(0, 20, 0, 260)
-    TS.BackgroundColor3 = Color3.fromRGB(10,10,10)
-
-    local UIC = TS:FindFirstChildOfClass("UICorner") or Instance.new("UICorner", TS)
-    UIC.CornerRadius = UDim.new(0, 12)
-
-    local UIStroke = TS:FindFirstChildOfClass("UIStroke") or Instance.new("UIStroke", TS)
-    UIStroke.Thickness = 1
-    UIStroke.Color = Color3.fromRGB(255,255,255)
-    UIStroke.Transparency = 0.7
-
-    local Pattern = TS:FindFirstChild("Pattern") or Instance.new("ImageLabel", TS)
-    Pattern.Name = "Pattern"
-    Pattern.BackgroundTransparency = 1
-    Pattern.Size = UDim2.new(1,0,1,0)
-    Pattern.Image = "rbxassetid://2151741365"
-    Pattern.ImageTransparency = 0.8
-    Pattern.ScaleType = Enum.ScaleType.Tile
-    Pattern.TileSize = UDim2.new(0, 32, 0, 32)
-
-    local Avatar = TS:FindFirstChild("Avatar") or Instance.new("ImageLabel", TS)
-    Avatar.Name = "Avatar"
-    Avatar.BackgroundTransparency = 1
-    Avatar.Position = UDim2.new(0, 8, 0, 8)
-    Avatar.Size = UDim2.new(0, 48, 0, 48)
-    Avatar.Image = "rbxthumb://type=AvatarHeadShot&id=1&w=48&h=48"
-
-    local NameLbl = TS:FindFirstChild("Name") or Instance.new("TextLabel", TS)
-    NameLbl.Name = "Name"
-    NameLbl.BackgroundTransparency = 1
-    NameLbl.Position = UDim2.new(0, 64, 0, 8)
-    NameLbl.Size = UDim2.new(1, -72, 0, 20)
-    NameLbl.Font = Enum.Font.GothamSemibold
-    NameLbl.TextSize = 14
-    NameLbl.TextColor3 = Color3.fromRGB(235,235,235)
-    NameLbl.Text = "Target"
-
-    local DistLbl = TS:FindFirstChild("Distance") or Instance.new("TextLabel", TS)
-    DistLbl.Name = "Distance"
-    DistLbl.BackgroundTransparency = 1
-    DistLbl.Position = UDim2.new(0, 64, 0, 28)
-    DistLbl.Size = UDim2.new(1, -72, 0, 16)
-    DistLbl.Font = Enum.Font.Gotham
-    DistLbl.TextSize = 12
-    DistLbl.TextColor3 = Color3.fromRGB(190,190,190)
-    DistLbl.Text = "0.0 studs away"
-
-    local Bar = TS:FindFirstChild("HPBar") or Instance.new("Frame", TS)
-    Bar.Name = "HPBar"
-    Bar.Position = UDim2.new(0, 8, 0, 68)
-    Bar.Size = UDim2.new(1, -16, 0, 16)
-    Bar.BackgroundColor3 = Color3.fromRGB(40,40,40)
-    local BarCorner = Bar:FindFirstChildOfClass("UICorner") or Instance.new("UICorner", Bar)
-    BarCorner.CornerRadius = UDim.new(0, 8)
-
-    local Fill = Bar:FindFirstChild("Fill") or Instance.new("Frame", Bar)
-    Fill.Name = "Fill"
-    Fill.BackgroundColor3 = Color3.fromRGB(70, 200, 90)
-    Fill.Size = UDim2.new(0.5, 0, 1, 0)
-    local FillCorner = Fill:FindFirstChildOfClass("UICorner") or Instance.new("UICorner", Fill)
-    FillCorner.CornerRadius = UDim.new(0, 8)
-
-    local HPLbl = TS:FindFirstChild("HPText") or Instance.new("TextLabel", TS)
-    HPLbl.Name = "HPText"
-    HPLbl.BackgroundTransparency = 1
-    HPLbl.Position = UDim2.new(0, 8, 0, 88)
-    HPLbl.Size = UDim2.new(1, -16, 0, 16)
-    HPLbl.Font = Enum.Font.Gotham
-    HPLbl.TextSize = 12
-    HPLbl.TextColor3 = Color3.fromRGB(220,220,220)
-    HPLbl.Text = "100 HP"
-
-    local PlayersService = game:GetService("Players")
-
-    local function updateTargetInfo(targetHumanoid, targetRoot, targetPlayer)
-        local health = 0
-        local maxHealth = 100
-        if targetHumanoid then
-            health = math.floor(targetHumanoid.Health + 0.5)
-            maxHealth = math.max(1, math.floor(targetHumanoid.MaxHealth + 0.5))
-        end
-        local percent = math.clamp(health / maxHealth, 0, 1)
-        Fill.Size = UDim2.new(percent, 0, 1, 0)
-        HPLbl.Text = string.format("%d HP", health)
-
-        if targetPlayer and targetPlayer.UserId then
-            Avatar.Image = string.format("rbxthumb://type=AvatarHeadShot&id=%d&w=48&h=48", targetPlayer.UserId)
-            NameLbl.Text = targetPlayer.DisplayName or targetPlayer.Name or "Target"
-        end
-
-        local char = LocalPlayer.Character
-        local hrp = char and char:FindFirstChild("HumanoidRootPart")
-        if hrp and targetRoot then
-            local d = (hrp.Position - targetRoot.Position).Magnitude
-            DistLbl.Text = string.format("%.1f studs away", d)
-        end
-    end
-
-    task.spawn(function()
-        while task.wait(0.1) do
-            local tp = nil
-            local humanoid = nil
-            local root = nil
-
-            local target = _G.Sydie_CurrentTarget or rawget(shared, "Sydie_CurrentTarget")
-            if typeof(target) == "Instance" then
-                local model = target:FindFirstChildOfClass("Model") or target
-                humanoid = model:FindFirstChildOfClass("Humanoid")
-                root = model:FindFirstChild("HumanoidRootPart")
-                tp = PlayersService:FindFirstChild(model.Name)
-            elseif typeof(target) == "table" and target.player then
-                tp = target.player
-                if tp and tp.Character then
-                    humanoid = tp.Character:FindFirstChildOfClass("Humanoid")
-                    root = tp.Character:FindFirstChild("HumanoidRootPart")
-                end
-            end
-
-            updateTargetInfo(humanoid, root, tp)
-        end
-    end)
-end)
-
-
---[[ Lock Toggle Star Particles with Settings Toggle ]]
-pcall(function()
-    local Players = game:GetService("Players")
-    local LocalPlayer = Players.LocalPlayer
-    local PlayerGui = LocalPlayer:FindFirstChildOfClass("PlayerGui") or LocalPlayer:WaitForChild("PlayerGui")
-    local ScreenGui = PlayerGui:FindFirstChild("Sydie_UI") or Instance.new("ScreenGui", PlayerGui)
-    ScreenGui.Name = "Sydie_UI"
-
-    local function findLockButton(gui)
-        for _, d in ipairs(gui:GetDescendants()) do
-            if d:IsA("ImageButton") then
-                local n = string.lower(d.Name)
-                if string.find(n, "lock") or string.find(n, "camlock") then
-                    return d
-                end
-            end
-        end
-    end
-
-    local LockBtn = findLockButton(ScreenGui)
-    if LockBtn and not LockBtn:FindFirstChild("StarEmitter") then
-        local emitter = Instance.new("ParticleEmitter")
-        emitter.Name = "StarEmitter"
-        emitter.Parent = LockBtn
-        emitter.Texture = "rbxassetid://243098098"
-        emitter.Rate = 2
-        emitter.Speed = NumberRange.new(1, 3)
-        emitter.Lifetime = NumberRange.new(2.2, 3.5)
-        emitter.EmissionDirection = Enum.NormalId.Bottom
-        emitter.LockedToPart = true
-        emitter.Enabled = true
-        emitter.Transparency = NumberSequence.new({NumberSequenceKeypoint.new(0,0.15), NumberSequenceKeypoint.new(1,1)})
-        emitter.Size = NumberSequence.new({NumberSequenceKeypoint.new(0, 0.12), NumberSequenceKeypoint.new(1, 0.06)})
-        emitter.RotSpeed = NumberRange.new(-10, 10)
-        emitter.VelocitySpread = 10
-        emitter.LightEmission = 0.6
-    end
-
-    _G.Sydie_DisableStarParticles = _G.Sydie_DisableStarParticles or false
-    task.spawn(function()
-        while task.wait(0.25) do
-            local btn = findLockButton(ScreenGui)
-            local e = btn and btn:FindFirstChild("StarEmitter")
-            if e then e.Enabled = not _G.Sydie_DisableStarParticles end
-        end
-    end)
-end)
-
-
---[[ Settingzz: Disable Star Particles toggle integration ]]
-_G.Sydie_DisableStarParticles = _G.Sydie_DisableStarParticles or false
-_G.Sydie_RegisterSettingToggle = _G.Sydie_RegisterSettingToggle or function(name, cb, default) cb(default) end
-_G.Sydie_RegisterSettingToggle("Disable Star Particles", function(state)
-    _G.Sydie_DisableStarParticles = state and true or false
-end, _G.Sydie_DisableStarParticles)
-
-
--- Tracer update for HumanoidRootPart
-if target and target.Character then
-    local hrp = target.Character:FindFirstChild("HumanoidRootPart")
-    if hrp then
-        local pos, onScreen = workspace.CurrentCamera:WorldToViewportPoint(hrp.Position)
-        -- draw tracer to pos here
-    end
-end
-
-print("testi7 Loaded")
